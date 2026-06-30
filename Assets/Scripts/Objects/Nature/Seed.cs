@@ -1,17 +1,39 @@
 using UnityEngine;
+using FF.Interaction;
+using FF.Systems; // 🌟 인벤토리 시스템 접근을 위해 추가
 
 namespace FF.Objects.Nature
 {
     /// <summary>
-    /// 씨앗. 물(안전한 상태)이 닿으면 나무로 성장한다.
-    /// 같은 위치에 미리 비활성화 상태로 놓아둔 나무 오브젝트(treeObject)를 활성화하는 방식으로 구현했다.
-    /// (프리팹을 새로 생성하는 대신, 씨앗과 나무를 같은 자리에 겹쳐 놓고 켜고 끄는 게 에디터에서 다루기 더 쉽다)
+    /// 씨앗. 인벤토리에 물 아이템이 있는 상태로 상호작용(E)하면 자라난다.
     /// </summary>
-    public class Seed : MonoBehaviour
+    public class Seed : MonoBehaviour, IInteractable
     {
-        [SerializeField] private GameObject treeObject; // 같은 위치에 미리 놓아둔, 비활성화된 나무 오브젝트
+        [SerializeField] private GameObject treeObject;
+        [SerializeField] private ItemData waterItemData; // 🌟 성장에 필요한 물 데이터
 
         public bool IsGrown { get; private set; } = false;
+
+        // 🌟 IInteractable 물 주기 기능 구현
+        public void Interact(GameObject interactor)
+        {
+            if (IsGrown) return;
+
+            Inventory inventory = interactor.GetComponent<Inventory>();
+            if (inventory == null) return;
+
+            // 인벤토리에 물이 있는지 확인하고 1개 소모
+            if (inventory.HasItem(waterItemData, 1))
+            {
+                inventory.RemoveItem(waterItemData, 1);
+                Grow();
+            }
+        }
+
+        public string GetInteractionPrompt()
+        {
+            return IsGrown ? "이미 다 자란 나무입니다." : "E 키를 눌러 물 주기";
+        }
 
         public void Grow()
         {
@@ -23,7 +45,7 @@ namespace FF.Objects.Nature
                 treeObject.SetActive(true);
             }
 
-            gameObject.SetActive(false); // 씨앗은 사라지고 나무로 대체된다
+            gameObject.SetActive(false); // 씨앗은 나무로 대체됨
         }
     }
 }
