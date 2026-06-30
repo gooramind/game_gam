@@ -20,10 +20,10 @@ public class ButtonMechanism : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = unpushedSprite;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // 🌟 수정: 태그가 "Player" 이거나 "Stone" 이면 작동하게 변경!
+        if (collision.CompareTag("Player") || collision.CompareTag("Stone"))
         {
             if (resetCoroutine != null)
             {
@@ -32,7 +32,6 @@ public class ButtonMechanism : MonoBehaviour
             }
 
             spriteRenderer.sprite = pushedSprite;
-            // 🌟 버튼 눌릴 때 위치 이동
             transform.localPosition += pushedOffset;
 
             if (linkedChest != null)
@@ -44,7 +43,8 @@ public class ButtonMechanism : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // 🌟 수정: "Player" 이거나 "Stone" 이면 복귀 로직 실행
+        if (collision.CompareTag("Player") || collision.CompareTag("Stone"))
         {
             if (gameObject.activeInHierarchy)
             {
