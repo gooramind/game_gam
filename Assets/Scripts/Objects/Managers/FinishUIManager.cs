@@ -4,44 +4,62 @@ using UnityEngine.SceneManagement;
 public class FinishUIManager : MonoBehaviour
 {
     [Header("연결할 UI 패널")]
-    public GameObject finishPanel; // 아까 만든 FinishPanel을 여기에 연결
+    public GameObject finishPanel;
 
-    [Header("이동할 씬 이름")]
-    public string nextStageName = "Stage2"; // 다음 스테이지 이름
-    public string menuSceneName = "MenuScene"; // 메뉴 씬 이름
+    [Header("씬 이름 설정")]
+    public string stagePrefix = "Stage";   // 🌟 씬 이름 접두사 (Stage1, Stage2...)
+    public string menuSceneName = "MenuScene";
 
     private void Start()
     {
-        // 게임 시작 시에는 클리어 창을 숨겨둡니다.
         if (finishPanel != null)
         {
             finishPanel.SetActive(false);
         }
     }
 
-    // 🌟 GoalItem이 획득되었을 때 호출되는 함수
     public void ShowFinishUI()
     {
         if (finishPanel != null)
         {
             finishPanel.SetActive(true);
-
-            // (선택) UI가 떴을 때 게임 캐릭터들이 안 움직이게 하려면 시간 흐름을 멈춥니다.
             Time.timeScale = 0f;
         }
     }
 
-    // 🌟 'Next Stage' 버튼을 눌렀을 때 실행될 함수
+    // 🌟 'Next Stage' 버튼: 현재 스테이지 번호 +1 로 이동
     public void OnNextStageClicked()
     {
-        Time.timeScale = 1f; // 멈췄던 시간을 다시 흐르게 돌려놓음
-        SceneManager.LoadScene(nextStageName);
+        Time.timeScale = 1f;
+
+        int nextNumber = GetCurrentStageNumber() + 1;
+        string nextSceneName = stagePrefix + nextNumber;
+
+        Debug.Log("다음 스테이지로 이동: " + nextSceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 
-    // 🌟 'Menu' 버튼을 눌렀을 때 실행될 함수
     public void OnMenuClicked()
     {
-        Time.timeScale = 1f; // 멈췄던 시간을 다시 흐르게 돌려놓음
+        Time.timeScale = 1f;
         SceneManager.LoadScene(menuSceneName);
+    }
+
+    // 🌟 현재 씬 이름에서 숫자만 뽑아낸다 (예: "Stage3" → 3)
+    private int GetCurrentStageNumber()
+    {
+        string currentName = SceneManager.GetActiveScene().name;
+
+        // 접두사("Stage")를 떼어내고 남은 숫자 부분만 추출
+        string numberPart = currentName.Replace(stagePrefix, "");
+
+        if (int.TryParse(numberPart, out int number))
+        {
+            return number;
+        }
+
+        // 숫자를 못 읽으면 경고하고 1로 처리 (안전장치)
+        Debug.LogWarning("현재 씬 이름에서 스테이지 번호를 읽지 못했습니다: " + currentName);
+        return 1;
     }
 }

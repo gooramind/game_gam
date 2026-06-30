@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1817435963516861570}
   - component: {fileID: 246765927067355061}
   - component: {fileID: 9133674122418774606}
+  - component: {fileID: -3142380055852242798}
   m_Layer: 0
   m_Name: PressureButton
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,4 +153,16 @@ MonoBehaviour:
   resetDelay: 0.5
   pushedOffset: {x: 0, y: -0.1, z: 0}
   isToggleButton: 0
-  linkedChest: {fileID: 0}
+  linkedChest: {fileID: 8896997950952043644, guid: d402ba78d3f93224b8aa81fad5260c5a, type: 3}
+--- !u!114 &-3142380055852242798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233103598638142544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b1d2a4fcc64c8428bd893c0da36813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

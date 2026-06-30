@@ -11,8 +11,6 @@ public class ChestMechanism : MonoBehaviour
     public Vector3 spawnOffset = new Vector3(0f, 1f, 0f);
 
     private bool isOpened = false;
-
-    // 🌟 추가: 소환한 아이템을 기억해두는 변수
     private GameObject spawnedItem;
 
     void Start()
@@ -54,8 +52,7 @@ public class ChestMechanism : MonoBehaviour
             spriteRenderer.sprite = closedSprite;
         }
 
-        // 🌟 추가: 소환했던 아이템이 아직 살아있으면(=안 먹었으면) 없앤다.
-        // 플레이어가 이미 먹었다면 spawnedItem이 Destroy되어 null이므로 그냥 둔다.
+        // 소환했던 아이템이 아직 안 먹혔으면 없앤다
         if (spawnedItem != null)
         {
             Destroy(spawnedItem);
