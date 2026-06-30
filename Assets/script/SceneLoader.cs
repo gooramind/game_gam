@@ -15,4 +15,9 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    // 버튼에서 씬 이름을 직접 넘겨받아서 이동하는 함수
+    public void LoadStage(string stageName)
+    {
+        SceneManager.LoadScene(stageName);
+    }
 }
