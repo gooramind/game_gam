@@ -2,10 +2,6 @@ using UnityEngine;
 
 namespace FF.Player
 {
-    /// <summary>
-    /// 플레이어의 좌우 이동, 점프, 바닥 판정을 담당하는 기본 컨트롤러.
-    /// Rigidbody2D의 물리 연산을 이용해 이동을 처리한다.
-    /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
@@ -14,14 +10,15 @@ namespace FF.Player
 
         [Header("점프 설정")]
         [SerializeField] private float jumpForce = 10f;
-        [SerializeField] private Transform groundCheck;       // 발밑에 둘 빈 오브젝트
+        [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius = 0.15f;
-        [SerializeField] private LayerMask groundLayer;        // 바닥으로 인식할 레이어
+        [SerializeField] private LayerMask groundLayer;
 
         [Header("충돌 다듬기")]
-        [SerializeField] private float maxFallSpeed = 18f;     // 낙하 속도 제한 (너무 빠르면 얇은 발판을 뚫고 지나갈 수 있음)
+        [SerializeField] private float maxFallSpeed = 18f;
 
         private Rigidbody2D rb;
+        private Animator anim; // 🌟 추가: 애니메이터 컴포넌트 변수
         private float moveInput;
         private bool isGrounded;
         private bool facingRight = true;
@@ -29,6 +26,7 @@ namespace FF.Player
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            anim = GetComponent<Animator>(); // 🌟 추가: 애니메이터 가져오기
         }
 
         private void Update()
@@ -52,6 +50,14 @@ namespace FF.Player
             }
 
             HandleFlip();
+
+            // 🌟 추가: 애니메이터에 현재 상태 전달
+            if (anim != null)
+            {
+                anim.SetFloat("Speed", Mathf.Abs(moveInput)); // 이동 속도 (절댓값으로 0 또는 1)
+                anim.SetBool("isGrounded", isGrounded);       // 바닥 여부
+                anim.SetFloat("vSpeed", rb.linearVelocity.y); // 수직 속도 (점프/낙하)
+            }
         }
 
         private void FixedUpdate()
