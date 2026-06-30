@@ -24,4 +24,4 @@ public class GoalItem : MonoBehaviour
             Destroy(gameObject);
         }
     }
-}   
+}

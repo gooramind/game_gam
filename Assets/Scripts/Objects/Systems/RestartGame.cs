@@ -33,4 +33,4 @@ public class RestartGame : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
-}
+}   
