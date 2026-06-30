@@ -43,9 +43,11 @@ GameObject:
   - component: {fileID: 4819603082250066151}
   - component: {fileID: 9095271308317915110}
   - component: {fileID: 4285667630220919848}
-  - component: {fileID: 7898236000506468825}
   - component: {fileID: 966265226113875401}
   - component: {fileID: 783963118170899745}
+  - component: {fileID: 7429486026419027609}
+  - component: {fileID: 2748495972022246095}
+  - component: {fileID: 1143994034886161424}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -197,7 +199,53 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7898236000506468825
+--- !u!114 &966265226113875401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3221821988367000808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a84aa2241714348b89c0340fcec7c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRadius: 1
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  interactKey: 101
+--- !u!114 &783963118170899745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3221821988367000808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cebc3bbf4766d74c8b401faba2802c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotCount: 1
+--- !u!114 &7429486026419027609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3221821988367000808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded52153292ab3e4e957ecb4ff9e13c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 783963118170899745}
+  itemPickupPrefab: {fileID: 0}
+  dropKey: 103
+  dropDistance: 1
+--- !u!114 &2748495972022246095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,7 +265,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   maxFallSpeed: 18
---- !u!114 &966265226113875401
+--- !u!114 &1143994034886161424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,24 +274,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3221821988367000808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a84aa2241714348b89c0340fcec7c3, type: 3}
+  m_Script: {fileID: 11500000, guid: a57fe9440f6ea0f4aabd300822f4c2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRadius: 1
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  interactKey: 101
---- !u!114 &783963118170899745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3221821988367000808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cebc3bbf4766d74c8b401faba2802c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotCount: 8
+  inventory: {fileID: 783963118170899745}

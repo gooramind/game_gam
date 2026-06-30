@@ -33,7 +33,6 @@ namespace FF.Player
 
         private void Update()
         {
-            // 좌우 입력 받기: Input Manager의 축 이름에 의존하지 않고 키를 직접 확인
             moveInput = 0f;
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
@@ -44,10 +43,8 @@ namespace FF.Player
                 moveInput = 1f;
             }
 
-            // 바닥에 닿아있는지 체크
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-            // 점프 입력 처리 (Space, W, 위쪽 화살표 중 하나 + 바닥에 있을 때만)
             bool jumpPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
             if (jumpPressed && isGrounded)
             {
@@ -59,11 +56,8 @@ namespace FF.Player
 
         private void FixedUpdate()
         {
-            // 실제 이동은 물리 연산 주기인 FixedUpdate에서 처리
-            // 주의: Unity 6 이전 버전이라 컴파일 에러가 나면 linearVelocity를 velocity로 바꿔주세요.
             float verticalVelocity = rb.linearVelocity.y;
 
-            // 낙하 속도가 maxFallSpeed를 넘지 않도록 제한
             if (verticalVelocity < -maxFallSpeed)
             {
                 verticalVelocity = -maxFallSpeed;
@@ -77,7 +71,6 @@ namespace FF.Player
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
 
-        // 이동 방향에 따라 스프라이트를 좌우로 뒤집는다
         private void HandleFlip()
         {
             if (moveInput > 0f && !facingRight)
@@ -98,7 +91,6 @@ namespace FF.Player
             transform.localScale = scale;
         }
 
-        // 에디터 화면에서 바닥 체크 범위를 눈으로 확인할 수 있게 표시
         private void OnDrawGizmosSelected()
         {
             if (groundCheck == null) return;
