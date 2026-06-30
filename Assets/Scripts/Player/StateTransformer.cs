@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro; // 🌟 UI 텍스트(TextMeshPro)를 다루기 위해 필수!
 
 namespace FF.Player
 {
@@ -7,16 +8,20 @@ namespace FF.Player
     public class StateTransformer : MonoBehaviour
     {
         [Header("General Settings")]
-        [SerializeField] private int maxUsesPerStage = 3;      // 스테이지당 최대 사용 횟수
-        [SerializeField] private float transformationDuration = 10f; // 변환 지속 시간
-        [SerializeField] private float maxTargetRange = 5f;       // 타겟(돌) 감지 최대 거리
+        [SerializeField] private int maxUsesPerStage = 3;
+        [SerializeField] private float transformationDuration = 10f;
+        [SerializeField] private float maxTargetRange = 5f;
 
         [Header("Stone Settings")]
-        [SerializeField] private string stoneTag = "Stone";       // 바위 태그
-        [SerializeField] private float transformedStoneMass = 1f; // 🌟 무게를 더 가볍게 조정 (잘 밀리도록)
+        [SerializeField] private string stoneTag = "Stone";
+        [SerializeField] private float transformedStoneMass = 1f;
 
         [Header("Button Reference")]
         public ButtonMechanism linkedButton;
+
+        [Header("UI Reference")]
+        // 🌟 횟수를 표시할 UI 텍스트 변수 추가
+        public TextMeshProUGUI usesTextUI;
 
         private int currentUses;
         private bool isTransformationActive;
@@ -29,13 +34,15 @@ namespace FF.Player
 
             if (linkedButton == null)
             {
-                Debug.LogWarning("버튼이 연결되지 않았습니다! Inspector 창에서 Linked Button을 넣어주세요.");
+                Debug.LogWarning("버튼이 연결되지 않았습니다!");
             }
+
+            // 🌟 게임 시작 시 UI 텍스트 초기화
+            UpdateUsesUI();
         }
 
         void Update()
         {
-            // Q 키 입력 처리 (변환 중이 아닐 때만)
             if (Input.GetKeyDown(KeyCode.Q) && !isTransformationActive)
             {
                 AttemptTransformation();
@@ -44,24 +51,21 @@ namespace FF.Player
 
         void AttemptTransformation()
         {
-            // 사용 횟수 제한 체크
             if (currentUses >= maxUsesPerStage)
             {
                 Debug.Log("스테이지 사용 횟수(3회)를 모두 소모했습니다.");
                 return;
             }
 
-            // 🌟 적 대신 '가장 가까운 돌'을 찾습니다.
             GameObject closestStone = FindClosestObjectWithinRange(stoneTag);
 
             if (closestStone != null)
             {
-                // 근처에 돌이 있다면 변환 시작!
                 ActivateTransformation();
             }
             else
             {
-                Debug.Log("주변에 변환할 대상(돌)이 없습니다! (거리 " + maxTargetRange + " 이내)");
+                Debug.Log("주변에 변환할 대상(돌)이 없습니다!");
             }
         }
 
@@ -69,19 +73,18 @@ namespace FF.Player
         {
             currentUses++;
             isTransformationActive = true;
-            Debug.Log($"상태 변환 시작! 남은 횟수: {maxUsesPerStage - currentUses}");
 
-            // 1. 돌(Stone)을 밀 수 있게 변경
+            // 🌟 스킬을 사용했으므로 UI 텍스트 즉시 업데이트
+            UpdateUsesUI();
+
             SetStonesPushable(true);
 
-            // 2. 버튼을 토글 모드로 변경
             if (linkedButton != null)
             {
                 linkedButton.isToggleButton = true;
                 linkedButton.ResetButtonToUnpushedState();
             }
 
-            // 지속 시간 체크 코루틴 시작
             if (activeCoroutine != null) StopCoroutine(activeCoroutine);
             activeCoroutine = StartCoroutine(TransformationDurationCoroutine());
         }
@@ -89,12 +92,9 @@ namespace FF.Player
         void DeactivateTransformation()
         {
             isTransformationActive = false;
-            Debug.Log("상태 변환 종료! 원래대로 돌아갑니다.");
 
-            // 1. 돌을 다시 못 밀게 변경
             SetStonesPushable(false);
 
-            // 2. 버튼을 다시 홀드 모드로 변경
             if (linkedButton != null)
             {
                 linkedButton.isToggleButton = false;
@@ -110,7 +110,6 @@ namespace FF.Player
             DeactivateTransformation();
         }
 
-        // 특정 태그를 가진 가장 가까운 오브젝트 찾기
         GameObject FindClosestObjectWithinRange(string targetTag)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
@@ -141,19 +140,27 @@ namespace FF.Player
                 {
                     if (isPushable)
                     {
-                        // 🌟 Dynamic으로 바꾸고 회전을 막아 안정적으로 밀리게 설정
                         stoneRb.bodyType = RigidbodyType2D.Dynamic;
                         stoneRb.mass = transformedStoneMass;
                         stoneRb.constraints = RigidbodyConstraints2D.FreezeRotation;
                     }
                     else
                     {
-                        // 🌟 다시 Kinematic으로 변경하여 고정
                         stoneRb.bodyType = RigidbodyType2D.Kinematic;
                         stoneRb.constraints = RigidbodyConstraints2D.None;
-                        stoneRb.linearVelocity = Vector2.zero; // Unity 6 최신 문법 (이전 버전이면 velocity로 수정)
+                        stoneRb.linearVelocity = Vector2.zero;
                     }
                 }
+            }
+        }
+
+        // 🌟 남은 횟수를 계산하여 UI 텍스트를 바꿔주는 전용 함수
+        void UpdateUsesUI()
+        {
+            if (usesTextUI != null)
+            {
+                int usesLeft = maxUsesPerStage - currentUses;
+                usesTextUI.text = $"Uses: {usesLeft} / {maxUsesPerStage}";
             }
         }
     }
