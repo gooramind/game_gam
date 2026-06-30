@@ -2,25 +2,22 @@ using UnityEngine;
 
 public class ChestMechanism : MonoBehaviour
 {
-    public Sprite closedSprite;
-    public Sprite openSprite;
-    private SpriteRenderer spriteRenderer;
+    private Animator animator; // 🌟 애니메이션 제어를 위한 애니메이터 컴포넌트
 
     [Header("아이템 소환 설정")]
     public GameObject goalItemPrefab;
     public Vector3 spawnOffset = new Vector3(0f, 1f, 0f);
 
     private bool isOpened = false;
-
-    // 🌟 추가: 소환한 아이템을 기억해두는 변수
     private GameObject spawnedItem;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
+        // 🌟 Animator 컴포넌트 가져오기
+        animator = GetComponent<Animator>();
+        if (animator == null)
         {
-            Debug.LogError("SpriteRenderer를 찾을 수 없습니다!");
+            Debug.LogError("GameObject에 Animator 컴포넌트를 찾을 수 없습니다!");
         }
     }
 
@@ -29,10 +26,10 @@ public class ChestMechanism : MonoBehaviour
         if (isOpened) return;
         isOpened = true;
 
-        // 상자 열기 이미지 교체
-        if (spriteRenderer != null && openSprite != null)
+        // 🌟 애니메이터의 IsOpen 파라미터를 true로 설정하여 열림 애니메이션 재생
+        if (animator != null)
         {
-            spriteRenderer.sprite = openSprite;
+            animator.SetBool("IsOpen", true);
         }
 
         // 아이템 소환 (소환한 아이템을 변수에 저장)
@@ -48,14 +45,13 @@ public class ChestMechanism : MonoBehaviour
         if (!isOpened) return;
         isOpened = false;
 
-        // 상자 닫기 이미지로 교체
-        if (spriteRenderer != null && closedSprite != null)
+        // 🌟 애니메이터의 IsOpen 파라미터를 false로 설정하여 닫힘 애니메이션 재생
+        if (animator != null)
         {
-            spriteRenderer.sprite = closedSprite;
+            animator.SetBool("IsOpen", false);
         }
 
-        // 🌟 추가: 소환했던 아이템이 아직 살아있으면(=안 먹었으면) 없앤다.
-        // 플레이어가 이미 먹었다면 spawnedItem이 Destroy되어 null이므로 그냥 둔다.
+        // 소환했던 아이템이 아직 안 먹혔으면 없앤다
         if (spawnedItem != null)
         {
             Destroy(spawnedItem);
