@@ -243,12 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648108eca9e0ed9428a22d5d130b6717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUsesPerStage: 3
-  transformationDuration: 10
-  maxTargetRange: 5
-  stoneTag: Stone
-  transformedStoneMass: 5
-  linkedButton: {fileID: 0}
+  maxUsesPerStage: 1
+  maxTargetRange: 2
+  targetTag: Object
+  usesTextUI: {fileID: 0}
 --- !u!1 &1707725836447534960
 GameObject:
   m_ObjectHideFlags: 0
