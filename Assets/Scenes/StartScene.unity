@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startAudio: {fileID: 8300000, guid: c0aa4e061d020484d85e6a367df9ae65, type: 3}
   gameAudio: {fileID: 8300000, guid: 5fc91425de9ee0f4ebc4ee8b9a9255e1, type: 3}
-  bgmVolume: 0.3
+  bgmVolume: 0.1
 --- !u!4 &315029487
 Transform:
   m_ObjectHideFlags: 0
