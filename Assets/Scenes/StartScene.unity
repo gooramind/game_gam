@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f574ebc9b83800641a5cfbfd0a3b4a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAudio: {fileID: 0}
-  gameAudio: {fileID: 0}
+  startAudio: {fileID: 8300000, guid: c0aa4e061d020484d85e6a367df9ae65, type: 3}
+  gameAudio: {fileID: 8300000, guid: 5fc91425de9ee0f4ebc4ee8b9a9255e1, type: 3}
   bgmVolume: 0.3
 --- !u!4 &315029487
 Transform:

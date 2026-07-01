@@ -1893,17 +1893,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41bb8e0bcb2e0354aa97a30a7a6fb287, type: 3}
---- !u!114 &1860361660928336035 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9133674122418774606, guid: 5b4f154b508906741a182b3b8f9c36a5, type: 3}
-  m_PrefabInstance: {fileID: 7881878227620368751}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d83d5a5f1aed5643b67ae7262f92b1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2470263714603843212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2247,30 +2236,6 @@ PrefabInstance:
     - target: {fileID: 746649373385443655, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 746649373385443655, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1481777019804324744, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: interactableLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707725836447534960, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604040315984095559, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: usesTextUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604040315984095559, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: linkedButton
-      value: 
-      objectReference: {fileID: 1860361660928336035}
-    - target: {fileID: 7812388040055963300, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
-      propertyPath: slotCount
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8317436233128726098, guid: f3113ba00ce804449b22cf0d3f089159, type: 3}
       propertyPath: m_LocalPosition.x

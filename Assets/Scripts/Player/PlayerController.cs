@@ -28,7 +28,8 @@ namespace FF.Player
         private bool isGrounded;
         private bool facingRight = true;
         private float lastJumpTime = -999f;
-
+        public bool IsGrounded => isGrounded;
+        public bool IsMoving => Mathf.Abs(moveInput) > 0.01f;
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
