@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Water_Data
   m_EditorClassIdentifier: 
   itemId: Water
-  displayName: 
+  displayName: "\uBB3C"
   icon: {fileID: 8509550459451208454, guid: 616bc03e28864c2419cb44d79ed980dd, type: 3}
   maxStack: 1

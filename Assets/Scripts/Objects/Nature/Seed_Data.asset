@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d09d7ec406a198640acd6ea94256a146, type: 3}
-  m_Name: Vine_Data
+  m_Name: Seed_Data
   m_EditorClassIdentifier: 
-  itemId: Vine
-  displayName: "\uB369\uCFE8"
-  icon: {fileID: -7137108738498115610, guid: b08ff640f7d311546a2dc766c2aabc64, type: 3}
+  itemId: Seed
+  displayName: "\uC528\uC557"
+  icon: {fileID: 0}
   maxStack: 1

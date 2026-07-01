@@ -39,7 +39,9 @@ namespace FF.Systems
             bool added = inventory.AddItem(item, amount);
             if (added)
             {
-                gameObject.SetActive(false); // 일단 비활성화. 풀링이 필요해지면 Destroy 대신 재사용 가능
+                // 자기 자신이 아니라 부모(스프라이트 포함한 실제 아이템 오브젝트)를 끈다
+                GameObject target = transform.parent != null ? transform.parent.gameObject : gameObject;
+                target.SetActive(false);
             }
         }
 

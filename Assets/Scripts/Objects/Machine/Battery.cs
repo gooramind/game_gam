@@ -33,7 +33,8 @@ namespace FF.Objects.Machine
             bool added = inventory.AddItem(batteryItemData, 1);
             if (added)
             {
-                gameObject.SetActive(false);
+                GameObject target = transform.parent != null ? transform.parent.gameObject : gameObject;
+                target.SetActive(false);
             }
         }
 
