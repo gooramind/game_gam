@@ -714,8 +714,8 @@ MonoBehaviour:
   - {fileID: 1372676188}
   - {fileID: 1893493597}
   - {fileID: 236026173}
-  overrideStage: 1
-  targetStage: 1
+  overrideStage: 0
+  targetStage: 5
 --- !u!1 &539007619
 GameObject:
   m_ObjectHideFlags: 0

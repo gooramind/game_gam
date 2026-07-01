@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class ChestMechanism : MonoBehaviour
 {
-    public Sprite closedSprite;
-    public Sprite openSprite;
-    private SpriteRenderer spriteRenderer;
-
     [Header("아이템 소환 설정")]
     public GameObject goalItemPrefab;
+    [Tooltip("상자 위치에서 얼마나 위에 아이템을 띄울지")]
     public Vector3 spawnOffset = new Vector3(0f, 1f, 0f);
 
+    [Header("애니메이션 설정")]
+    [Tooltip("Animator Controller 안에 있는, 열림 여부를 나타내는 Bool 파라미터 이름")]
+    public string isOpenParam = "IsOpen";
+
+    private Animator animator;
     private bool isOpened = false;
     private GameObject spawnedItem;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
+        animator = GetComponent<Animator>();
+        if (animator == null)
         {
-            Debug.LogError("SpriteRenderer를 찾을 수 없습니다!");
+            Debug.LogError("[ChestMechanism] Animator를 찾을 수 없습니다!");
         }
     }
 
@@ -27,17 +29,17 @@ public class ChestMechanism : MonoBehaviour
         if (isOpened) return;
         isOpened = true;
 
-        // 상자 열기 이미지 교체
-        if (spriteRenderer != null && openSprite != null)
+        // 🌟 스프라이트 직접 교체 대신, 애니메이터에게 "열려라" 신호만 보냄
+        if (animator != null)
         {
-            spriteRenderer.sprite = openSprite;
+            animator.SetBool(isOpenParam, true);
         }
 
-        // 아이템 소환 (소환한 아이템을 변수에 저장)
         if (goalItemPrefab != null)
         {
-            spawnedItem = Instantiate(goalItemPrefab, transform.position + spawnOffset, Quaternion.identity);
-            Debug.Log("아이템이 소환되었습니다!");
+            Vector3 spawnPosition = transform.position + spawnOffset;
+            spawnedItem = Instantiate(goalItemPrefab, spawnPosition, Quaternion.identity);
+            Debug.Log("[ChestMechanism] 아이템이 소환되었습니다! 위치: " + spawnPosition);
         }
     }
 
@@ -46,13 +48,12 @@ public class ChestMechanism : MonoBehaviour
         if (!isOpened) return;
         isOpened = false;
 
-        // 상자 닫기 이미지로 교체
-        if (spriteRenderer != null && closedSprite != null)
+        // 🌟 스프라이트 직접 교체 대신, 애니메이터에게 "닫혀라" 신호만 보냄
+        if (animator != null)
         {
-            spriteRenderer.sprite = closedSprite;
+            animator.SetBool(isOpenParam, false);
         }
 
-        // 소환했던 아이템이 아직 안 먹혔으면 없앤다
         if (spawnedItem != null)
         {
             Destroy(spawnedItem);
